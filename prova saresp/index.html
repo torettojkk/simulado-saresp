@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Simulado SARESP 2025</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+  }
+  /* --- Landing Page --- */
+  #landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  #landing h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #ff7f00;
+  }
+  #landing p {
+    font-size: 20px;
+    color: #ccc;
+    margin-bottom: 40px;
+  }
+  #landing .start-btn {
+    font-size: 24px;
+    padding: 15px 40px;
+    background-color: #ff7f00;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #landing .start-btn:hover {
+    background-color: #e06b00;
+  }
+  #landing .logo {
+    width: 200px;
+    margin-bottom: 40px;
+  }
+  /* --- Simulado --- */
+  #simulado {
+    display: none;
+    flex-direction: row;
+    height: 100vh;
+  }
+  .sidebar {
+    background-color: #ff7f00;
+    width: 80px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+  }
+  .sidebar button {
+    background-color: #fff;
+    border: none;
+    margin: 5px 0;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    font-weight: bold;
+  }
+  .sidebar button.active {
+    background-color: #ffd966;
+  }
+  .main {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+  }
+  .main h1 {
+    font-size: 42px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff7f00;
+  }
+  .timer {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #ff5252;
+    text-align: center;
+  }
+  .question {
+    background-color: #111;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    border-left: 8px solid #ff7f00;
+  }
+  .question p {
+    font-size: 26px;
+    line-height: 1.5;
+  }
+  .choices button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 12px 0;
+    font-size: 22px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .choices button.selected {
+    background-color: #ff7f00;
+    color: #000;
+  }
+  .choices button.correct {
+    background-color: #00c853;
+    border-color: #00c853;
+    color: #000;
+  }
+  .choices button.wrong {
+    background-color: #d50000;
+    border-color: #d50000;
+    color: #fff;
+  }
+  .btn-submit {
+    font-size: 24px;
+    padding: 14px 30px;
+    background-color: #ff7f00;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    transition: background 0.3s;
+  }
+  .btn-submit:hover {
+    background-color: #e06b00;
+  }
+  .help-text {
+    margin-top: 25px;
+    font-size: 18px;
+    color: #ccc;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- === Landing Page === -->
+<div id="landing">
+  <img src="logo.png" alt="Logo SARESP/VUNESP" class="logo">
+  <h1>Simulado SARESP 2025</h1>
+  <p>Bem-vindo ao simulado oficial. Clique abaixo para iniciar a prova.</p>
+  <button class="start-btn" onclick="startExam()">Iniciar Prova</button>
+  <p class="help-text">Simulação destinada a fins educativos. Não é o sistema oficial.</p>
+</div>
+
+<!-- === Simulado === -->
+<div id="simulado">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main">
+    <h1>Simulado SARESP 2025 – 7º Ano</h1>
+    <div class="timer" id="timer">45:00</div>
+    <div id="questions-container"></div>
+    <button class="btn-submit" id="submit-btn">Entregar Prova</button>
+    <p class="help-text">Se tiver dúvidas, revise cada questão atentamente e selecione a alternativa correta.</p>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {id:1,text:"Em uma loja, um boné custa R$ 40. Desconto de 25%. Qual o preço final?",choices:["R$ 30","R$ 32","R$ 35","R$ 28"],answer:1},
+  {id:2,text:"Receita: 3 copos água / 2 copos arroz. Se usar 9 copos de água, quantos de arroz?",choices:["3","4","6","5"],answer:2},
+  {id:3,text:"Converta 0,45 para porcentagem.",choices:["4,5%","45%","0,45%","450%"],answer:1},
+  {id:4,text:"Calcule 3x+5, x=7.",choices:["26","24","23","22"],answer:0},
+  {id:5,text:"Volume do bloco 5x4x3 cm.",choices:["60 cm³","12 cm³","15 cm³","48 cm³"],answer:0},
+  {id:6,text:"Simplifique 18/24.",choices:["3/4","2/3","3/5","4/6"],answer:0},
+  {id:7,text:"MDC de 36 e 60?",choices:["12","6","24","18"],answer:0},
+  {id:8,text:"MMC de 4,6,8?",choices:["24","48","12","36"],answer:1},
+  {id:9,text:"Resolva: -5 + 8 - 3.",choices:["0","2","-2","3"],answer:2},
+  {id:10,text:"Resolva: (-6)*(-3).",choices:["-18","18","9","-9"],answer:1},
+  {id:11,text:"3/4 + 2/3",choices:["17/12","5/7","1","11/12"],answer:0},
+  {id:12,text:"7/8 - 1/2",choices:["3/8","5/16","1/4","1/3"],answer:0},
+  {id:13,text:"Ângulo interno de triângulo equilátero?",choices:["60°","90°","120°","45°"],answer:0},
+  {id:14,text:"Soma dos ângulos internos de um hexágono?",choices:["720°","540°","360°","600°"],answer:1},
+  {id:15,text:"Se 40% de um número é 120, qual o número?",choices:["300","480","250","400"],answer:0},
+  {id:16,text:"Resolva 2x+5=13",choices:["4","5","6","8"],answer:0},
+  {id:17,text:"Probabilidade de sair número par em um dado?",choices:["1/2","1/3","1/6","2/3"],answer:0},
+  {id:18,text:"Volume de cubo aresta 4cm.",choices:["64 cm³","16 cm³","12 cm³","8 cm³"],answer:0},
+  {id:19,text:"Transforme 3/5 em decimal.",choices:["0,6","0,3","0,5","0,8"],answer:0},
+  {id:20,text:"Regra de três: 5 canetas custam R$ 20. Quanto custam 8 canetas?",choices:["R$ 32","R$ 30","R$ 28","R$ 35"],answer:0},
+];
+
+let answers = {};
+let timeLeft = 45*60;
+const timerEl = document.getElementById("timer");
+const questionsContainer = document.getElementById("questions-container");
+const sidebar = document.getElementById("sidebar");
+
+function formatTime(sec) {
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = (sec%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+
+function renderQuestions() {
+  questionsContainer.innerHTML="";
+  sidebar.innerHTML="";
+  questions.forEach((q, idx)=>{
+    const div=document.createElement("div");
+    div.className="question";
+    div.id="q"+q.id;
+    div.innerHTML=`<p><strong>Questão ${idx+1}:</strong> ${q.text}</p>`;
+    const choicesDiv=document.createElement("div");
+    choicesDiv.className="choices";
+    q.choices.forEach((ch,cidx)=>{
+      const btn=document.createElement("button");
+      btn.textContent=String.fromCharCode(65+cidx)+". "+ch;
+      btn.onclick=()=>{
+        answers[q.id]=cidx;
+        Array.from(choicesDiv.children).forEach(b=>b.classList.remove("selected"));
+        btn.classList.add("selected");
+      };
+      choicesDiv.appendChild(btn);
+    });
+    div.appendChild(choicesDiv);
+    questionsContainer.appendChild(div);
+
+    const sbBtn=document.createElement("button");
+    sbBtn.textContent=idx+1;
+    sbBtn.onclick=()=>{document.getElementById("q"+q.id).scrollIntoView({behavior:"smooth"});};
+    sidebar.appendChild(sbBtn);
+  });
+}
+
+function startTimer() {
+  setInterval(()=>{
+    if(timeLeft>0){
+      timeLeft--;
+      timerEl.textContent=formatTime(timeLeft);
+    }
+  },1000);
+}
+
+document.getElementById("submit-btn").onclick=()=>{
+  questions.forEach((q,idx)=>{
+    const div=document.getElementById("q"+q.id);
+    Array.from(div.querySelectorAll("button")).forEach((btn,cidx)=>{
+      if(cidx===q.answer) btn.classList.add("correct");
+      else if(answers[q.id]===cidx) btn.classList.add("wrong");
+      btn.disabled=true;
+    });
+  });
+  alert("Prova finalizada!");
+};
+
+// === Função para iniciar prova ===
+function startExam() {
+  document.getElementById("landing").style.display="none";
+  document.getElementById("simulado").style.display="flex";
+  renderQuestions();
+  startTimer();
+}
+</script>
+
+</body>
+</html>
